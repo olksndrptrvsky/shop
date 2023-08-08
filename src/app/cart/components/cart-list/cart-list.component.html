@@ -1,0 +1,17 @@
+<p>cart-list works!</p>
+<div class="cart-list" *ngIf="!isCartEmpty(); else cartIsEmpty">
+    <table>
+        <tr>
+            <th>Product</th>
+            <th>Count</th>
+        </tr>
+        <tr *ngFor="let cartItem of cartItems">
+            <td>{{cartItem.product.name}}</td>
+            <td>{{cartItem.count}}</td>
+        </tr>
+    </table>
+    <button (click)="onClearCart()">Clear cart</button>
+</div>
+
+
+<ng-template #cartIsEmpty>Your cart is empty! Let's buy something</ng-template>
