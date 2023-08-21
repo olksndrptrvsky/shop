@@ -11,6 +11,7 @@ export class ProductComponent {
   @Input()
   product!: ProductModel;
 
+  // Лучше сформировать output 
   constructor(private cartService: CartService) {
 
   }
