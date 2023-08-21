@@ -1,3 +1,10 @@
+## [0.0.2] - 2023-08-21
+
+### Fixed
+
+- Product component to send event instead of modifying data via service
+- Switched to short property notation via constructor
+
 ## [0.0.1] - 2023-08-08
 
 ### Added
