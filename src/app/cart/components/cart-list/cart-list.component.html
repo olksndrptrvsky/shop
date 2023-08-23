@@ -1,13 +1,21 @@
 <p>cart-list works!</p>
 <div class="cart-list" *ngIf="!isCartEmpty(); else cartIsEmpty">
+    <app-cart-item *ngFor="let cartItem of cartItems"
+        [cartItem]="cartItem"
+        [itemCount]="cartItem.count"
+        (deleteItem)="onDeleteItem($event)"
+        (quantityDecrease)="onQuantityDecrease($event)"
+        (quantityIncrease)="onQuantityIncrease($event)"
+        appHighlight
+        ></app-cart-item>
     <table>
         <tr>
-            <th>Product</th>
-            <th>Count</th>
+            <th>Total Cost:</th>
+            <td>{{getTotalCost()}}</td>
         </tr>
-        <tr *ngFor="let cartItem of cartItems">
-            <td>{{cartItem.product.name}}</td>
-            <td>{{cartItem.count}}</td>
+        <tr>
+            <th>Total Quantity:</th>
+            <td>{{getTotalQuantity()}}</td>
         </tr>
     </table>
     <button (click)="onClearCart()">Clear cart</button>

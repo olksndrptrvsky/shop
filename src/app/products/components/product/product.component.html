@@ -1,2 +1,2 @@
 <p>product {{product.id}}</p>
-<button (click)="onAddToCart()">Buy</button>
+<button (click)="onAddToCart()" [disabled]="!product.isAvailable">Buy</button>

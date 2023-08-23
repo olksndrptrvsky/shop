@@ -22,8 +22,30 @@ export class CartService {
   }
 
   clearCart(): void {
-    this.cartItems.length = 0;
-    console.log(this.cartItems.length);
+    this.cartItems = [];
+  }
+
+  getTotalCost(): number {
+    return this.cartItems.reduce((sum, item) => sum + item.product.price * item.count, 0);
+  }
+
+  getTotalQuantity(): number {
+    return this.cartItems.reduce((sum, item) => sum + item.count, 0);
+  }
+
+  decreaseCount(product: ProductModel): void {
+    let cartItem = this.cartItems.find(x => x.product.id == product.id) ?? null;
+    if (!cartItem)
+      return;
+
+    cartItem?.decrementCount();
+
+    if (cartItem.count <= 0)
+      this.deleteItem(cartItem.product);
+  }
+
+  deleteItem(product: ProductModel): void {
+    this.cartItems = this.cartItems.filter(ci => ci.product.id != product.id);
   }
 
   private findProductInCart(product: ProductModel): CartItemModel | undefined {

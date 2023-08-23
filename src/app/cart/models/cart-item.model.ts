@@ -7,4 +7,8 @@ export class CartItemModel {
     incrementCount(): void {
         this.count++;
     }
+
+    decrementCount(): void {
+        this.count--;
+    }
 }

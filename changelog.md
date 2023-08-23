@@ -1,3 +1,13 @@
+## [0.0.3] - 2023-08-23
+
+### Added
+
+- Buy button is only enabled if the product is available
+- Display product name and count in the cart
+- Display total sum and count in the cart
+- Highlight cart item on the hover 
+
+
 ## [0.0.2] - 2023-08-21
 
 ### Fixed

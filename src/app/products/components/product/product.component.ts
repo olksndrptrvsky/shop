@@ -7,7 +7,7 @@ import { ProductModel } from '../../models/product.model';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent {
-  @Input()
+  @Input({required: true})
   product!: ProductModel;
 
   @Output()

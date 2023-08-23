@@ -1,0 +1,6 @@
+<div>
+    <span  [ngStyle]="{'width': '200px'}">{{cartItem.product.name}}   {{cartItem.count}}   </span>
+    <button (click)="onQuantityIncrease()">+</button>
+    <button (click)="onQuantityDecrease()">-</button>
+    <button (click)="onDeleteItem()">X</button>
+</div>
