@@ -1,3 +1,15 @@
+## [0.0.4] - 2023-09-02
+
+### Added
+
+- Highlights of the product name on click
+- ConfigOptionsService, GeneratorFactory, GeneratorService, LocalStorageService
+
+### Fixed
+
+- Refactored CartService
+
+
 ## [0.0.3] - 2023-08-23
 
 ### Added

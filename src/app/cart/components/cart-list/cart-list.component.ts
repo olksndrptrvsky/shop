@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Inject, InjectionToken } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { ProductModel } from 'src/app/products/models/product.model';
+import { GeneratorService } from 'src/app/core/services/generator.service';
+import { GeneratorFactory } from 'src/app/core/services/generator.factory';
+
 
 @Component({
   selector: 'app-cart-list',
@@ -9,18 +12,20 @@ import { ProductModel } from 'src/app/products/models/product.model';
 })
 export class CartListComponent {
 
-  constructor(private cartService: CartService) { }
+  constructor(
+    private cartService: CartService,) {
+  }
 
   get cartItems() {
-    return this.cartService.cartItems;
+    return this.cartService.cartProducts;
   }
 
   onClearCart(): void {
-    this.cartService.clearCart();
+    this.cartService.removeAllProducts();
   }
 
   isCartEmpty(): boolean {
-    return !this.cartService.cartItems.length;
+    return this.cartService.isEmptyCart;
   }
 
   getTotalCost(): number {
@@ -32,14 +37,14 @@ export class CartListComponent {
   }
 
   onQuantityIncrease(product: ProductModel): void {
-    this.cartService.addToCart(product);
+    this.cartService.addProduct(product);
   }
 
   onQuantityDecrease(product: ProductModel): void {
-    this.cartService.decreaseCount(product);
+    this.cartService.decreaseQuantity(product);
   }
 
   onDeleteItem(product: ProductModel): void {
-    this.cartService.deleteItem(product);
+    this.cartService.removeProduct(product);
   }
 }

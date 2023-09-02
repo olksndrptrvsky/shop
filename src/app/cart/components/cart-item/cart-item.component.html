@@ -1,5 +1,5 @@
 <div>
-    <span  [ngStyle]="{'width': '200px'}">{{cartItem.product.name}}   {{cartItem.count}}   </span>
+    <span  [ngStyle]="{'width': '200px'}">{{cartItem.product.name}}   {{cartItem.quantity}}   </span>
     <button (click)="onQuantityIncrease()">+</button>
     <button (click)="onQuantityDecrease()">-</button>
     <button (click)="onDeleteItem()">X</button>

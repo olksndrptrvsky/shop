@@ -13,7 +13,7 @@ export class CartItemComponent {
   cartItem!: CartItemModel;
 
   @Input({required: true})
-  itemCount!: number;
+  itemQuantity!: number;
 
   @Output()
   quantityIncrease: EventEmitter<ProductModel> = new EventEmitter<ProductModel>

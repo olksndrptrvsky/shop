@@ -2,7 +2,7 @@
 <div class="cart-list" *ngIf="!isCartEmpty(); else cartIsEmpty">
     <app-cart-item *ngFor="let cartItem of cartItems"
         [cartItem]="cartItem"
-        [itemCount]="cartItem.count"
+        [itemQuantity]="cartItem.quantity"
         (deleteItem)="onDeleteItem($event)"
         (quantityDecrease)="onQuantityDecrease($event)"
         (quantityIncrease)="onQuantityIncrease($event)"

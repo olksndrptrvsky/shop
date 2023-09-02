@@ -6,53 +6,97 @@ import { ProductModel } from 'src/app/products/models/product.model';
   providedIn: 'root'
 })
 export class CartService {
-  cartItems: Array<CartItemModel> = [];
+  private _cartProducts: Array<CartItemModel> = [];
 
   constructor() { }
 
-  addToCart(product: ProductModel): void {
-    let cartItem = this.findProductInCart(product);
+  addProduct(product: ProductModel, count: number = 1): void {
+    let cartItemIndex = this.findCartItemIndex(product);
 
-    if (cartItem) {
-      cartItem.incrementCount();
+    if (cartItemIndex > -1) {
+      this.increaseCartItemQuantity(cartItemIndex);
     }
     else {
-      this.addNewProductToCart(product);
+      this.addNewProductToCart(product, count);
     }
   }
 
-  clearCart(): void {
-    this.cartItems = [];
+  getProducts(): Array<CartItemModel> {
+    return this.cartProducts;
+  }
+
+  removeAllProducts(): void {
+    this._cartProducts = [];
   }
 
   getTotalCost(): number {
-    return this.cartItems.reduce((sum, item) => sum + item.product.price * item.count, 0);
+    return this.cartProducts.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
   }
 
   getTotalQuantity(): number {
-    return this.cartItems.reduce((sum, item) => sum + item.count, 0);
+    return this.cartProducts.reduce((sum, item) => sum + item.quantity, 0);
+  }
+  
+  increaseQuantity(product: ProductModel): void {
+    let cartItemIndex = this.findCartItemIndex(product);
+
+    if (cartItemIndex > -1) {
+      this.increaseCartItemQuantity(cartItemIndex);
+    }
   }
 
-  decreaseCount(product: ProductModel): void {
-    let cartItem = this.cartItems.find(x => x.product.id == product.id) ?? null;
-    if (!cartItem)
-      return;
+  decreaseQuantity(product: ProductModel): void {
+    let cartItemIndex = this.findCartItemIndex(product);
 
-    cartItem?.decrementCount();
-
-    if (cartItem.count <= 0)
-      this.deleteItem(cartItem.product);
+    if (cartItemIndex > -1) {
+      this.decreaseCartItemQuantity(cartItemIndex);
+    }
   }
 
-  deleteItem(product: ProductModel): void {
-    this.cartItems = this.cartItems.filter(ci => ci.product.id != product.id);
+  removeProduct(product: ProductModel): void {
+    this._cartProducts = this.cartProducts.filter(ci => ci.product.id != product.id);
   }
 
-  private findProductInCart(product: ProductModel): CartItemModel | undefined {
-    return this.cartItems.find(x => x.product.id == product.id);
+  get cartProducts(): Array<CartItemModel> {
+    return this._cartProducts;
   }
 
-  private addNewProductToCart(product: ProductModel): void {
-    this.cartItems.push(new CartItemModel(product));
+  get isEmptyCart(): boolean {
+    return this.cartProducts.length == 0;
+  }
+
+  private increaseCartItemQuantity(cartItemIndex: number): void {
+    if (cartItemIndex > -1) {
+      let cartItem = this.getProducts()[cartItemIndex];
+      this.changeQuantity(cartItemIndex, cartItem.quantity + 1);
+    }
+  }
+
+  private decreaseCartItemQuantity(cartItemIndex: number): void {
+    if (cartItemIndex > -1) {
+      let cartItem = this.getProducts()[cartItemIndex];
+      let newQuantity = cartItem.quantity - 1;
+
+      if (newQuantity > 0) {
+        this.changeQuantity(cartItemIndex, newQuantity);
+      }
+      else {
+        this.removeProduct(cartItem.product);
+      }
+    }
+  }
+
+  private changeQuantity(cartItemIndex: number, newQuantity: number): void {
+    let updatedCartItem = new CartItemModel(this.cartProducts[cartItemIndex].product, newQuantity);
+    this._cartProducts = this.cartProducts.slice();
+    this._cartProducts.splice(cartItemIndex, 1, updatedCartItem);
+  }
+
+  private findCartItemIndex(product: ProductModel): number {
+    return this.cartProducts.findIndex(x => x.product.id == product.id);
+  }
+
+  private addNewProductToCart(product: ProductModel, quantity: number = 1): void {
+    this._cartProducts = [...this._cartProducts, new CartItemModel(product, quantity)];
   }
 }
