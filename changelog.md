@@ -1,3 +1,13 @@
+## [0.0.5] - 2023-09-02
+
+### Added
+
+- Currency pipe for Total Cost in CartListComponent view
+- Uppercase pipe for product name in ProductComponent view
+- getProducts returns Promise, async pipe is used in ProductListComponent view
+- OrderBy pipe is used inside CartListCompotent view (not working from the initializing)
+
+
 ## [0.0.4] - 2023-09-02
 
 ### Added

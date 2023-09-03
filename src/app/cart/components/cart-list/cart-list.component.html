@@ -1,6 +1,16 @@
-<p>cart-list works!</p>
+<p></p>
 <div class="cart-list" *ngIf="!isCartEmpty(); else cartIsEmpty">
-    <app-cart-item *ngFor="let cartItem of cartItems"
+    Order by
+    <select name="sortingColumn" id="sortingColumnSelect" #sortingColumn (change)="onUpdateSortingOptions(sortingColumn.value, isAsc.checked)">
+        <option value="product.name">Product Name</option>
+        <option value="product.price">Price</option>
+        <option value="quantity">Quantity</option>
+    </select>
+
+    <label for="isAscCheckbox">Asc</label>
+    <input type="checkbox" id="isAscCheckbox" #isAsc (change)="onUpdateSortingOptions(sortingColumn.value, isAsc.checked)"/>
+
+    <app-cart-item *ngFor="let cartItem of cartItems | orderBy: sortOptions"
         [cartItem]="cartItem"
         [itemQuantity]="cartItem.quantity"
         (deleteItem)="onDeleteItem($event)"
@@ -11,7 +21,7 @@
     <table>
         <tr>
             <th>Total Cost:</th>
-            <td>{{getTotalCost()}}</td>
+            <td>{{getTotalCost() | currency}}</td>
         </tr>
         <tr>
             <th>Total Quantity:</th>
@@ -20,6 +30,8 @@
     </table>
     <button (click)="onClearCart()">Clear cart</button>
 </div>
+
+<div>{{ arrayToTestSorting | orderBy: sortOptionsToTestSorting | json }}</div>
 
 
 <ng-template #cartIsEmpty>Your cart is empty! Let's buy something</ng-template>

@@ -9,7 +9,7 @@ import { CartService } from 'src/app/cart/services/cart.service';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
-  products!: Array<ProductModel>;
+  products!: Promise<Array<ProductModel>>;
 
   constructor(
     private productService: ProductService,

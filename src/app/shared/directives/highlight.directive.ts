@@ -6,7 +6,6 @@ import { Directive, HostBinding, HostListener } from '@angular/core';
 export class HighlightDirective {
   
   constructor() {
-    console.log("ctor");
   }
 
   @HostBinding("style.color")
@@ -14,13 +13,11 @@ export class HighlightDirective {
 
   @HostListener("pointerenter")  
   onMouseEnter(): void {
-    console.log("pointerenter");
     this.backgroundColor = 'yellow';
   }
 
   @HostListener("pointerleave")
   onMouseLeave(): void {
-    console.log("pointerleave");
     this.backgroundColor = '';
   }
 }

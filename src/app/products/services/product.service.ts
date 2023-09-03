@@ -13,7 +13,7 @@ export class ProductService {
 
   constructor() { }
 
-  getProducts() : Array<ProductModel> {
-    return this.products;
+  getProducts() : Promise<Array<ProductModel>> {
+    return Promise.resolve(this.products);
   }
 }
