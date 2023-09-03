@@ -42,7 +42,7 @@ export class CartListComponent implements AfterViewInit {
   }
 
   get cartItems() {
-    this.onUpdateSortingOptions(this.sortingColumn.nativeElement.value, this.isAsc.nativeElement.value);
+    // this.onUpdateSortingOptions(this.sortingColumn.nativeElement.value, this.isAsc.nativeElement.value);
     return this.cartService.cartProducts;
   }
 
