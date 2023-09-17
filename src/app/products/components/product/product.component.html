@@ -1,2 +1,2 @@
-<p appClickToHighlight color="blue">product {{product.name | uppercase}}</p>
+<p appClickToHighlight color="blue" routerLink="{{product.id}}" style="cursor: pointer;">product {{product.name | uppercase}}</p>
 <button (click)="onAddToCart()" [disabled]="!product.isAvailable">Buy</button>

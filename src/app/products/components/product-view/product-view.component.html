@@ -1,0 +1,10 @@
+<div *ngIf="product else productNotFound">
+    <h2>{{product.name | uppercase}}</h2>
+    <p>{{product.price | currency}}</p>
+    <button (click)="onBuy()">Buy</button>
+    <button (click)="onAddToCart()">Add to Cart</button>
+</div>
+
+<ng-template #productNotFound>
+    <p>Product not found</p>
+</ng-template>

@@ -1,7 +1,8 @@
-import { AfterViewInit, Component, ElementRef, Inject, InjectionToken, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject, InjectionToken, ViewChild, inject } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { ProductModel } from 'src/app/products/models/product.model';
 import { CartItemModel } from '../../models/cart-item.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart-list',
@@ -33,6 +34,8 @@ export class CartListComponent implements AfterViewInit {
   @ViewChild('isAscCheckbox')
   isAsc!: ElementRef;
 
+  private router = inject(Router);
+
   constructor(
     private cartService: CartService,) {
   }
@@ -48,6 +51,10 @@ export class CartListComponent implements AfterViewInit {
 
   onClearCart(): void {
     this.cartService.removeAllProducts();
+  }
+
+  onPlaceOrder(): void {
+    this.router.navigate(['/order']);
   }
 
   isCartEmpty(): boolean {

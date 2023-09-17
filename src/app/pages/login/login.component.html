@@ -1,0 +1,5 @@
+<p>login works!</p>
+<h3>{{message}}</h3>
+<button *ngIf="!loginService.isLoggedIn" (click)="onLoginAsUser()">Login as user</button>
+<button *ngIf="!loginService.isLoggedIn" (click)="onLoginAsAdmin()">Login as admin</button>
+<button *ngIf="loginService.isLoggedIn" (click)="onLogOut()">Logout</button>

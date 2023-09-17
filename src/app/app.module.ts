@@ -8,21 +8,31 @@ import { CartModule } from './cart/cart.module';
 import { ProductsModule } from './products/products.module';
 import { OrdersModule } from './orders/orders.module';
 import { SharedModule } from './shared/shared.module';
+import { LoginComponent, PageNotFoundComponent } from './pages';
+import { TitleStrategy } from '@angular/router';
+import { PageTitleStrategy } from './core';
+import { AdminModule } from './admin/admin.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     FirstComponent,
+    PageNotFoundComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     CartModule,
     ProductsModule,
     OrdersModule,
     SharedModule,
+    AdminModule,
+    //should be last
+    AppRoutingModule,
   ],
-  providers: [],
+  providers: [
+    { provide: TitleStrategy, useClass: PageTitleStrategy }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

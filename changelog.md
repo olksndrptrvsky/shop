@@ -1,3 +1,14 @@
+## [0.0.6] - 2023-09-17
+
+### Added
+
+- Admin, Products, Cart modules with own routings
+- Login functionality (with LocalStorage service using from LoginService)
+- Admin pages protected by isAdminGuard
+- Edit product admin page is using resolver to get the product
+- Edit product admin page is using CanDeactivate guard to get confirmation from user if current minutes are odd
+- Order component is protected with cartNotEmpty guard
+
 ## [0.0.5] - 2023-09-02
 
 ### Added

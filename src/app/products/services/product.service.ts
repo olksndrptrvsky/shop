@@ -16,4 +16,8 @@ export class ProductService {
   getProducts() : Promise<Array<ProductModel>> {
     return Promise.resolve(this.products);
   }
+
+  getProduct(productId: number) : Promise<ProductModel | undefined> {
+    return Promise.resolve(this.products.find(x => x.id == productId));
+  }
 }

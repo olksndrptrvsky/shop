@@ -29,9 +29,10 @@
         </tr>
     </table>
     <button (click)="onClearCart()">Clear cart</button>
+    <button (click)="onPlaceOrder()">Place order</button>
 </div>
 
-<div>{{ arrayToTestSorting | orderBy: sortOptionsToTestSorting | json }}</div>
+<!-- <div>{{ arrayToTestSorting | orderBy: sortOptionsToTestSorting | json }}</div> -->
 
 
 <ng-template #cartIsEmpty>Your cart is empty! Let's buy something</ng-template>
