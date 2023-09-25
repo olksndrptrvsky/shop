@@ -7,7 +7,9 @@ const routes: Routes = [
     {
         path: 'products',
         component: ProductsComponent,
+        title: 'Products',
         children: [
+            // обычно расположение объектов от более специфического path к более общему
             {
                 path: '',
                 component: ProductListComponent
@@ -18,7 +20,6 @@ const routes: Routes = [
                 title: productViewTitleResolver
             }
         ],
-        title: 'Products',
     }
 ];
 
