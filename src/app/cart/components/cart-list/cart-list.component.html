@@ -10,7 +10,7 @@
     <label for="isAscCheckbox">Asc</label>
     <input type="checkbox" id="isAscCheckbox" #isAsc (change)="onUpdateSortingOptions(sortingColumn.value, isAsc.checked)"/>
 
-    <app-cart-item *ngFor="let cartItem of cartItems | orderBy: sortOptions"
+    <app-cart-item *ngFor="let cartItem of cartService.getProducts() | async | orderBy : sortOptions"
         [cartItem]="cartItem"
         [itemQuantity]="cartItem.quantity"
         (deleteItem)="onDeleteItem($event)"

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +13,7 @@ import { LoginComponent, PageNotFoundComponent } from './pages';
 import { TitleStrategy } from '@angular/router';
 import { PageTitleStrategy } from './core';
 import { AdminModule } from './admin/admin.module';
+import { httpInterceptorProviders } from './core/interceptors';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { AdminModule } from './admin/admin.module';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
+
     CartModule,
     ProductsModule,
     OrdersModule,
@@ -31,7 +35,8 @@ import { AdminModule } from './admin/admin.module';
     AppRoutingModule,
   ],
   providers: [
-    { provide: TitleStrategy, useClass: PageTitleStrategy }
+    { provide: TitleStrategy, useClass: PageTitleStrategy },
+    httpInterceptorProviders
   ],
   bootstrap: [AppComponent]
 })

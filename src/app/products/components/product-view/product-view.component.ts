@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
-import { ProductService } from '../../services';
+import { ProductsPromiseService } from '../../services';
 import { ProductModel } from '../../models/product.model';
 import { Router } from '@angular/router';
-import { CartService } from 'src/app/cart/services/cart.service';
+import { CartObservableService } from 'src/app/cart';
 
 @Component({
   selector: 'app-product-view',
@@ -15,14 +15,17 @@ export class ProductViewComponent implements OnInit {
 
   product!: ProductModel | undefined;
 
-  private productService = inject(ProductService);
+  private productService = inject(ProductsPromiseService);
   private router = inject(Router);
-  private cartService = inject(CartService);
+  private cartService = inject(CartObservableService);
 
   ngOnInit() {
     this.productService.getProduct(+this.productId)
       .then(product => this.product = product)
-      .catch(error => console.error(error))
+      .catch(error => {
+        console.log("catched in the ngOnInit");
+        console.error(error);
+      });
   }
 
   onBuy() {

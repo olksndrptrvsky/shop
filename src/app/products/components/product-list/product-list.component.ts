@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../../services/product.service';
 import { ProductModel } from '../../models/product.model';
-import { CartService } from 'src/app/cart/services/cart.service';
+import { ProductsPromiseService } from '../..';
+import { CartObservableService } from 'src/app/cart';
 
 @Component({
   selector: 'app-product-list',
@@ -12,8 +12,8 @@ export class ProductListComponent implements OnInit {
   products!: Promise<Array<ProductModel>>;
 
   constructor(
-    private productService: ProductService,
-    private cartService: CartService) { }
+    private productService: ProductsPromiseService,
+    private cartService: CartObservableService) { }
 
   ngOnInit(): void {
     this.products = this.productService.getProducts();

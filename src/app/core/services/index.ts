@@ -5,3 +5,4 @@ export * from './generator.factory';
 export * from './local-storage.service';
 export * from './login.service';
 export * from './dialog.service';
+export * from './app-settings.service';

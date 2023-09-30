@@ -1,8 +1,9 @@
-import { AfterViewInit, Component, ElementRef, Inject, InjectionToken, ViewChild, inject } from '@angular/core';
-import { CartService } from '../../services/cart.service';
+import { AfterViewInit, Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { ProductModel } from 'src/app/products/models/product.model';
 import { CartItemModel } from '../../models/cart-item.model';
 import { Router } from '@angular/router';
+import { CartObservableService } from '../..';
+import { AppSettingsService } from 'src/app/core';
 
 @Component({
   selector: 'app-cart-list',
@@ -10,22 +11,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./cart-list.component.css'],
 })
 export class CartListComponent implements AfterViewInit {
-  sortOptionsToTestSorting = new Map<keyof ProductModel, boolean>([
-    ["id", true],
-    ["name", true],
-    ["price", true],
-  ]);
-
-  arrayToTestSorting = [
-    new ProductModel(1, "abc", 1, false),
-    new ProductModel(1, "zbc", 1, false),
-    new ProductModel(1, "abc", 2, false),
-    new ProductModel(1, "acb", 1, false),
-    new ProductModel(2, "abc", 1, false),
-    new ProductModel(2, "abc", 1, false),
-    new ProductModel(3, "abc", 1, false),
-  ]
-
   sortOptions = new Map<keyof CartItemModel, boolean>(); 
 
   @ViewChild('sortingColumnSelect')
@@ -35,18 +20,17 @@ export class CartListComponent implements AfterViewInit {
   isAsc!: ElementRef;
 
   private router = inject(Router);
-
+  
   constructor(
-    private cartService: CartService,) {
+    public cartService: CartObservableService,
+    private appSettingsService: AppSettingsService) {
+      this.appSettingsService.getAppSettings().subscribe(appSettings => {
+        console.log("Got value from AppSettingService: ", appSettings);
+      });
   }
 
   ngAfterViewInit(): void {
     console.log(this.sortingColumn, this.isAsc);
-  }
-
-  get cartItems() {
-    // this.onUpdateSortingOptions(this.sortingColumn.nativeElement.value, this.isAsc.nativeElement.value);
-    return this.cartService.cartProducts;
   }
 
   onClearCart(): void {

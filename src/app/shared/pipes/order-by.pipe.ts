@@ -5,7 +5,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class OrderByPipe implements PipeTransform {
 
-  transform<TInput, K extends keyof TInput>(arrayToSort: Array<TInput>, sortOptions: Map<K, boolean>): Array<TInput> {
+  transform<TInput, K extends keyof TInput>(arrayToSort: Array<TInput> | null, sortOptions: Map<K, boolean>): Array<TInput> | null {
+    if (!arrayToSort) {
+      return null;
+    }
+
     let fieldsToSort = Array.from(sortOptions.keys());
 
     let sortedArray = this.sortArray(arrayToSort.slice(), sortOptions, fieldsToSort);
@@ -13,7 +17,7 @@ export class OrderByPipe implements PipeTransform {
     return sortedArray;
   }
 
-  private sortArray<TInput, K extends keyof TInput>(array: Array<TInput>, sortOptions: Map<K, boolean>, fieldsToSort: Array<K>): Array<TInput> {   
+  private sortArray<TInput, K extends keyof TInput>(array: Array<TInput>, sortOptions: Map<K, boolean>, fieldsToSort: Array<K>): Array<TInput> {
     if (fieldsToSort.length == 0 || array.length == 1) {
       return array;
     }
@@ -31,7 +35,7 @@ export class OrderByPipe implements PipeTransform {
     return sortedSubArrays.reduce((result, subArray) => result.concat(subArray), []);
   }
 
-  private defaultComparer(a: any, b: any, fieldName: string, isAsc: boolean) : number {
+  private defaultComparer(a: any, b: any, fieldName: string, isAsc: boolean): number {
 
     let firstOperand = this.getFieldValue(a, fieldName);
     let secondOperand = this.getFieldValue(b, fieldName);
@@ -54,7 +58,7 @@ export class OrderByPipe implements PipeTransform {
   private splitArrayBySameValues<TInput, K extends keyof TInput>(array: Array<TInput>, fieldName: K): Array<Array<TInput>> {
     let result = new Array<Array<TInput>>();
     let uniqueValues = this.getUniqueValuesByField(array, fieldName);
-    
+
     uniqueValues.forEach(uniqueValue => {
       result.push(array.filter(arrayItem => this.getFieldValue(arrayItem, fieldName.toString()) == uniqueValue));
     });
