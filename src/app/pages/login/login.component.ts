@@ -12,11 +12,12 @@ export class LoginComponent {
     "loggedInAsAdmin": "Logged in as admin",
     "notLoggedIn": "Please log in to the system",
   }
-  
+
   message!: string;
 
   loginService = inject(LoginService);
 
+  // обычно такой код размещают в ngOnInit
   constructor() {
     this.message = !this.loginService.isLoggedIn
       ? this.messages["notLoggedIn"]
@@ -30,7 +31,7 @@ export class LoginComponent {
     this.loginService.logInUser();
     this.message = this.messages["loggedInAsUser"];
   }
-  
+
   onLoginAsAdmin() {
     this.loginService.logInAdmin();
     this.message = this.messages["loggedInAsAdmin"];

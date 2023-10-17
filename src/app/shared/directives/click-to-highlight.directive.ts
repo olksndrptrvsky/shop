@@ -20,7 +20,7 @@ export class ClickToHighlightDirective {
     let element = this.element.nativeElement;
     if (!this.isHighlighted)
     {
-      this.previousColor = getComputedStyle(element).color;
+      this.previousColor = getComputedStyle(element).getPropertyValue('color');
       this.renderer.setStyle(element, "color", this.color);
     }
     else {
